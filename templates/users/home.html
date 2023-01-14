@@ -1,0 +1,37 @@
+{% extends "../base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+    
+        <div class="col-4 mt-5">
+            <h4>Student Form</h4>
+            <div class="mt-4">
+                <form novalidate action="" method="post">
+                    {% csrf_token %}
+                {{student_form.as_p}}
+                <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-8 mt-5">
+            <h4 class="text-center">Students</h4>
+            <div class="mt-4">
+                <ul class="list-group">
+            {% for student in all_students %}
+         
+                    <li class="list-group-item d-flex justify-content-between">{{student.name}}-{{student.age}}
+
+                        <div>
+                                <a href="{% url 'update' id=student.id %}" class="btn btn-sm btn-success">Update</a>
+                                <form action="{% url 'delete' id=student.id %}">
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                            </div>
+                    </li>
+            {% endfor %}
+                </ul>
+            </div>
+    </div>
+</div>
+{% endblock content %}
